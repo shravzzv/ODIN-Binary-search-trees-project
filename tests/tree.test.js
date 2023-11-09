@@ -37,4 +37,29 @@ describe('Tests for class Tree', () => {
     // The tree structure is not explicitly checked here, but it should be correct if the tree is balanced
     expect(tree.root).not.toBeNull()
   })
+
+  test('does not insert a duplicate value', () => {
+    const tree = new Tree([5, 3])
+    tree.insert(5)
+    expect(tree.root.left).toBeNull()
+  })
+
+  test('correctly inserts values into the tree', () => {
+    const tree = new Tree([])
+    tree.insert(5)
+    tree.insert(3)
+    tree.insert(7)
+    tree.insert(2)
+    tree.insert(4)
+    tree.insert(6)
+    tree.insert(8)
+    // The tree structure should be correct after insertions
+    expect(tree.root.data).toBe(5)
+    expect(tree.root.left.data).toBe(3)
+    expect(tree.root.right.data).toBe(7)
+    expect(tree.root.left.left.data).toBe(2)
+    expect(tree.root.left.right.data).toBe(4)
+    expect(tree.root.right.left.data).toBe(6)
+    expect(tree.root.right.right.data).toBe(8)
+  })
 })

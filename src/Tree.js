@@ -48,4 +48,23 @@ export class Tree {
       this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true)
     }
   }
+
+  insert(value) {
+    function insertNode(node, data) {
+      if (data === node.data) {
+        return
+        // don't add duplicates
+      } else if (data < node.data) {
+        node.left ? insertNode(node.left, data) : (node.left = new Node(data))
+      } else {
+        node.right
+          ? insertNode(node.right, data)
+          : (node.right = new Node(data))
+      }
+    }
+
+    this.root === null
+      ? (this.root = new Node(value))
+      : insertNode(this.root, value)
+  }
 }
