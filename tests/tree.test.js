@@ -95,4 +95,25 @@ describe('Tests for class Tree', () => {
     expect(tree.root.left.data).toBe(3)
     expect(tree.root.right.data).toBe(7)
   })
+
+  test('finds a node with the given value', () => {
+    const tree = new Tree([5, 3, 7, 2, 4, 6, 8])
+    const foundNode = tree.find(4)
+    // The node with value 4 should be found in the tree
+    expect(foundNode.data).toBe(4)
+  })
+
+  test('returns -1 for non-existing value', () => {
+    const tree = new Tree([5, 3, 7, 2, 4, 6, 8])
+    const foundNode = tree.find(9)
+    // The value 9 does not exist in the tree, so the method should return -1
+    expect(foundNode).toBe(-1)
+  })
+
+  test('returns -1 for an empty tree', () => {
+    const tree = new Tree([])
+    const foundNode = tree.find(5)
+    // The tree is empty, so the method should return -1
+    expect(foundNode).toBe(-1)
+  })
 })

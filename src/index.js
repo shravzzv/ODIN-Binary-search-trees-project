@@ -2,5 +2,5 @@ import { Tree } from './Tree'
 
 const arr = [5, 3, 7, 2, 4, 6, 8]
 const tree = new Tree(arr)
-tree.delete(7)
 tree.prettyPrint()
+console.log(tree.find(0))

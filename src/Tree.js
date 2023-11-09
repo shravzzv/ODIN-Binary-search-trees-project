@@ -97,4 +97,22 @@ export class Tree {
 
     this.root = removeNode(this.root, value)
   }
+
+  find(value) {
+    // returns the node with the given value
+    let currentNode = this.root
+    if (currentNode === null) return -1
+
+    while (currentNode) {
+      if (value === currentNode.data) {
+        return currentNode
+      } else if (value > currentNode.data) {
+        currentNode = currentNode.right
+      } else {
+        currentNode = currentNode.left
+      }
+    }
+
+    return -1
+  }
 }
