@@ -115,4 +115,29 @@ export class Tree {
 
     return -1
   }
+
+  levelOrder(fn = null) {
+    // Traverses the tree in breadth-first level order and provide each node as an argument to the callback. If no callback is provided, returns an array of values in levelOrder
+
+    const result = []
+    const Q = []
+    Q.push(this.root)
+    while (Q.length > 0) {
+      let node = Q.shift()
+      result.push(node.data)
+
+      if (fn) {
+        fn(node.data)
+      }
+
+      if (node.left) Q.push(node.left)
+      if (node.right) Q.push(node.right)
+    }
+
+    return result
+  }
+
+  levelOrderRecursive(fn = null) {
+    // todo
+  }
 }
