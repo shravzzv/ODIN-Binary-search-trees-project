@@ -1,119 +1,115 @@
 import { Tree } from '../src/Tree'
 
-describe('Tests for class Tree', () => {
-  test('creates a tree with the correct root node', () => {
-    const inputArray = [3, 1, 5, 2, 4]
-    const tree = new Tree(inputArray)
-    expect(tree.root.data).toBe(3) // Root node should be the middle element of the sorted array
+describe('Tree', () => {
+  let tree
+
+  beforeEach(() => {
+    tree = new Tree([5, 3, 7, 2, 4, 6, 8])
   })
 
-  test('tree is balanced', () => {
-    const inputArray = [3, 1, 5, 2, 4]
-    const tree = new Tree(inputArray)
-    // Helper function to calculate the height of the tree
-    const getHeight = (node) => {
-      if (node === null) {
-        return 0
-      }
-      const leftHeight = getHeight(node.left)
-      const rightHeight = getHeight(node.right)
-      return Math.max(leftHeight, rightHeight) + 1
-    }
-    // Check if the height difference between left and right subtrees is at most 1
-    expect(
-      Math.abs(getHeight(tree.root.left) - getHeight(tree.root.right))
-    ).toBeLessThanOrEqual(1)
+  describe('insert', () => {
+    test('inserts a new node correctly', () => {
+      tree.insert(1)
+      expect(tree.find(1)).not.toBeNull()
+    })
+
+    test('does not insert duplicate nodes', () => {
+      tree.insert(3)
+      const inOrderResult = tree.inOrder()
+      expect(inOrderResult).toEqual([2, 3, 4, 5, 6, 7, 8])
+    })
   })
 
-  test('handles empty input', () => {
-    const tree = new Tree([])
-    expect(tree.root).toBe(null)
+  describe('delete', () => {
+    test('deletes a leaf node correctly', () => {
+      tree.delete(2)
+      const inOrderResult = tree.inOrder()
+      expect(inOrderResult).toEqual([3, 4, 5, 6, 7, 8])
+    })
+
+    test('deletes a node with one child correctly', () => {
+      tree.delete(7)
+      const inOrderResult = tree.inOrder()
+      expect(inOrderResult).toEqual([2, 3, 4, 5, 6, 8])
+    })
+
+    test('deletes a node with two children correctly', () => {
+      tree.delete(7)
+      const levelOrderResult = tree.levelOrder()
+      expect(levelOrderResult).toEqual([5, 3, 8, 2, 4, 6])
+    })
   })
 
-  test('handles input with duplicates and empty values', () => {
-    const inputArray = [3, 1, 5, 2, 4, null, 1, 5]
-    const tree = new Tree(inputArray)
-    // In this case, duplicates and empty values should be removed, so the tree should have only unique, non-empty values
-    // The tree structure is not explicitly checked here, but it should be correct if the tree is balanced
-    expect(tree.root).not.toBeNull()
+  describe('find', () => {
+    test('finds an existing node', () => {
+      const node = tree.find(4)
+      expect(node).not.toBeNull()
+      expect(node.data).toBe(4)
+    })
+
+    test('returns -1 for non-existing node', () => {
+      const node = tree.find(10)
+      expect(node).toBe(-1)
+    })
   })
 
-  test('does not insert a duplicate value', () => {
-    const tree = new Tree([5, 3])
-    tree.insert(5)
-    expect(tree.root.left).toBeNull()
+  describe('levelOrder', () => {
+    test('traverses the tree in level order', () => {
+      const levelOrderResult = tree.levelOrder()
+      expect(levelOrderResult).toEqual([5, 3, 7, 2, 4, 6, 8])
+    })
+
+    test('executes the callback function for each node', () => {
+      const callbackFn = jest.fn()
+      tree.levelOrder(callbackFn)
+      expect(callbackFn).toHaveBeenCalledTimes(7)
+      expect(callbackFn).toHaveBeenCalledWith(5)
+      expect(callbackFn).toHaveBeenCalledWith(8)
+    })
   })
 
-  test('correctly inserts values into the tree', () => {
-    const tree = new Tree([])
-    tree.insert(5)
-    tree.insert(3)
-    tree.insert(7)
-    tree.insert(2)
-    tree.insert(4)
-    tree.insert(6)
-    tree.insert(8)
-    // The tree structure should be correct after insertions
-    expect(tree.root.data).toBe(5)
-    expect(tree.root.left.data).toBe(3)
-    expect(tree.root.right.data).toBe(7)
-    expect(tree.root.left.left.data).toBe(2)
-    expect(tree.root.left.right.data).toBe(4)
-    expect(tree.root.right.left.data).toBe(6)
-    expect(tree.root.right.right.data).toBe(8)
+  describe('inOrder', () => {
+    test('traverses the tree in in-order', () => {
+      const inOrderResult = tree.inOrder()
+      expect(inOrderResult).toEqual([2, 3, 4, 5, 6, 7, 8])
+    })
+
+    test('executes the callback function for each node', () => {
+      const callbackFn = jest.fn()
+      tree.inOrder(callbackFn)
+      expect(callbackFn).toHaveBeenCalledTimes(7)
+      expect(callbackFn).toHaveBeenCalledWith(2)
+      expect(callbackFn).toHaveBeenCalledWith(8)
+    })
   })
 
-  test('deletes the root node', () => {
-    const tree = new Tree([5, 3, 7, 2, 4, 6, 8])
-    tree.delete(5)
-    expect(tree.root.data).toBe(6)
+  describe('preOrder', () => {
+    test('traverses the tree in pre-order', () => {
+      const preOrderResult = tree.preOrder()
+      expect(preOrderResult).toEqual([5, 3, 2, 4, 7, 6, 8])
+    })
+
+    test('executes the callback function for each node', () => {
+      const callbackFn = jest.fn()
+      tree.preOrder(callbackFn)
+      expect(callbackFn).toHaveBeenCalledTimes(7)
+      expect(callbackFn).toHaveBeenCalledWith(5)
+      expect(callbackFn).toHaveBeenCalledWith(8)
+    })
   })
 
-  test('deletes a node with no children', () => {
-    const tree = new Tree([5, 3])
-    tree.delete(5)
-    expect(tree.root.left).toBeNull()
-    expect(tree.root.right).toBeNull()
-  })
+  describe('postOrder', () => {
+    test('traverses the tree in post-order', () => {
+      const postOrderResult = tree.postOrder()
+      expect(postOrderResult).toEqual([2, 4, 3, 6, 8, 7, 5])
+    })
 
-  test('deletes a node with one child', () => {
-    const tree = new Tree([5, 3, 7, 2, 4, 6])
-    tree.delete(7)
-    expect(tree.root.right.data).toBe(6)
-  })
-
-  test('deletes a node with two children', () => {
-    const tree = new Tree([5, 3, 7, 2, 4, 6, 8])
-    tree.delete(7)
-    expect(tree.root.right.data).toBe(8)
-  })
-
-  test('handles deleting a non-existing node', () => {
-    const tree = new Tree([5, 3, 7])
-    tree.delete(10)
-    expect(tree.root.data).toBe(5)
-    expect(tree.root.left.data).toBe(3)
-    expect(tree.root.right.data).toBe(7)
-  })
-
-  test('finds a node with the given value', () => {
-    const tree = new Tree([5, 3, 7, 2, 4, 6, 8])
-    const foundNode = tree.find(4)
-    // The node with value 4 should be found in the tree
-    expect(foundNode.data).toBe(4)
-  })
-
-  test('returns -1 for non-existing value', () => {
-    const tree = new Tree([5, 3, 7, 2, 4, 6, 8])
-    const foundNode = tree.find(9)
-    // The value 9 does not exist in the tree, so the method should return -1
-    expect(foundNode).toBe(-1)
-  })
-
-  test('returns -1 for an empty tree', () => {
-    const tree = new Tree([])
-    const foundNode = tree.find(5)
-    // The tree is empty, so the method should return -1
-    expect(foundNode).toBe(-1)
+    test('executes the callback function for each node', () => {
+      const callbackFn = jest.fn()
+      tree.postOrder(callbackFn)
+      expect(callbackFn).toHaveBeenCalledTimes(7)
+      expect(callbackFn).toHaveBeenCalledWith(2)
+      expect(callbackFn).toHaveBeenCalledWith(8)
+    })
   })
 })

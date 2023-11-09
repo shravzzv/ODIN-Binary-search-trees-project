@@ -118,6 +118,7 @@ export class Tree {
 
   levelOrder(fn = null) {
     // Traverses the tree in breadth-first level order and provide each node as an argument to the callback. If no callback is provided, returns an array of values in levelOrder
+    if (this.root === null) return null
 
     const result = []
     const Q = []
@@ -137,7 +138,51 @@ export class Tree {
     return result
   }
 
-  levelOrderRecursive(fn = null) {
-    // todo
+  inOrder(fn = null) {
+    // left -> root -> right
+    if (this.root === null) return null
+
+    const result = []
+    function traverseInOrder(node, result) {
+      if (node.left) traverseInOrder(node.left, result)
+      if (fn) fn(node.data)
+      result.push(node.data)
+      if (node.right) traverseInOrder(node.right, result)
+    }
+
+    traverseInOrder(this.root, result)
+    return result
+  }
+
+  preOrder(fn = null) {
+    // root -> left -> right
+    if (this.root === null) return null
+
+    const result = []
+    function traversePreOrder(node, result) {
+      if (fn) fn(node.data)
+      result.push(node.data)
+      if (node.left) traversePreOrder(node.left, result)
+      if (node.right) traversePreOrder(node.right, result)
+    }
+
+    traversePreOrder(this.root, result)
+    return result
+  }
+
+  postOrder(fn = null) {
+    // left -> right -> root
+    if (this.root === null) return null
+
+    const result = []
+    function traversePostOrder(node, result) {
+      if (node.left) traversePostOrder(node.left, result)
+      if (node.right) traversePostOrder(node.right, result)
+      if (fn) fn(node.data)
+      result.push(node.data)
+    }
+
+    traversePostOrder(this.root, result)
+    return result
   }
 }
