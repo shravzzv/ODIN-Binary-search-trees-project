@@ -62,4 +62,37 @@ describe('Tests for class Tree', () => {
     expect(tree.root.right.left.data).toBe(6)
     expect(tree.root.right.right.data).toBe(8)
   })
+
+  test('deletes the root node', () => {
+    const tree = new Tree([5, 3, 7, 2, 4, 6, 8])
+    tree.delete(5)
+    expect(tree.root.data).toBe(6)
+  })
+
+  test('deletes a node with no children', () => {
+    const tree = new Tree([5, 3])
+    tree.delete(5)
+    expect(tree.root.left).toBeNull()
+    expect(tree.root.right).toBeNull()
+  })
+
+  test('deletes a node with one child', () => {
+    const tree = new Tree([5, 3, 7, 2, 4, 6])
+    tree.delete(7)
+    expect(tree.root.right.data).toBe(6)
+  })
+
+  test('deletes a node with two children', () => {
+    const tree = new Tree([5, 3, 7, 2, 4, 6, 8])
+    tree.delete(7)
+    expect(tree.root.right.data).toBe(8)
+  })
+
+  test('handles deleting a non-existing node', () => {
+    const tree = new Tree([5, 3, 7])
+    tree.delete(10)
+    expect(tree.root.data).toBe(5)
+    expect(tree.root.left.data).toBe(3)
+    expect(tree.root.right.data).toBe(7)
+  })
 })

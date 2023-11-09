@@ -67,4 +67,34 @@ export class Tree {
       ? (this.root = new Node(value))
       : insertNode(this.root, value)
   }
+
+  delete(value) {
+    function removeNode(node, data) {
+      if (node === null) return null
+
+      if (data === node.data) {
+        if (node.left === null && node.right === null) return null
+        if (node.left === null) return node.right
+        if (node.right === null) return node.left
+
+        // If node has two children, replace it with its successor. It's successor is the lowest leaf node in the right subtree.
+        let successor = node.right
+        while (successor.left) {
+          successor = successor.left
+        }
+        node.data = successor.data
+        node.right = removeNode(node.right, successor.data)
+
+        return node
+      } else if (data < node.data) {
+        node.left = removeNode(node.left, data)
+        return node
+      } else {
+        node.right = removeNode(node.right, data)
+        return node
+      }
+    }
+
+    this.root = removeNode(this.root, value)
+  }
 }
