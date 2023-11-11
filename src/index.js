@@ -26,32 +26,34 @@ function getRandomIntInclusive(min, max) {
 }
 
 const randomNums = new Set()
-for (let i = 0; [...randomNums].length < 50; i++) {
+for (let i = 0; [...randomNums].length < 10; i++) {
   randomNums.add(getRandomIntInclusive(0, 99))
 }
 
 const tree = new Tree([...randomNums])
+tree.prettyPrint()
 
-console.log(tree.isBalanced())
+console.log('Is Balanced? ' + tree.isBalanced())
 
-console.log(tree.levelOrder())
-console.log(tree.preOrder())
-console.log(tree.postOrder())
-console.log(tree.inOrder())
+console.log('Level order: ' + tree.levelOrder())
+console.log('Pre order: ' + tree.preOrder())
+console.log('Post order: ' + tree.postOrder())
+console.log('In order: ' + tree.inOrder())
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 15; i++) {
   tree.insert(getRandomIntInclusive(101, 200))
 }
 
-console.log(tree.isBalanced())
+tree.prettyPrint()
+
+console.log('Is Balanced? ' + tree.isBalanced())
 
 tree.rebalance()
-
-console.log(tree.isBalanced())
-
-console.log(tree.levelOrder())
-console.log(tree.preOrder())
-console.log(tree.postOrder())
-console.log(tree.inOrder())
-
 tree.prettyPrint()
+
+console.log('Is Balanced? ' + tree.isBalanced())
+
+console.log('Level order: ' + tree.levelOrder())
+console.log('Pre order: ' + tree.preOrder())
+console.log('Post order: ' + tree.postOrder())
+console.log('In order: ' + tree.inOrder())
