@@ -156,4 +156,66 @@ describe('Tree', () => {
       expect(tree.getDepthOf(4)).toBe(2)
     })
   })
+
+  describe('getMinHeight', () => {
+    test('should return the min. height of an empty tree as -1 ', () => {
+      tree.root = null
+      expect(tree.getMinHeight()).toBe(-1)
+    })
+
+    test('should return the min. height of a tree with only root as 0', () => {
+      tree.root = null
+      tree.insert(3)
+      expect(tree.getMinHeight()).toBe(0)
+    })
+
+    test('should return the min. height of a tree with many nodes', () => {
+      expect(tree.getMinHeight()).toBe(2)
+    })
+  })
+
+  describe('getMaxHeight', () => {
+    test('should return the max. height of an empty tree as -1 ', () => {
+      tree.root = null
+      expect(tree.getMaxHeight()).toBe(-1)
+    })
+
+    test('should return the max. height of a tree with only root as 0', () => {
+      tree.root = null
+      tree.insert(3)
+      expect(tree.getMaxHeight()).toBe(0)
+    })
+
+    test('should return the max. height of a tree with many nodes', () => {
+      expect(tree.getMaxHeight()).toBe(2)
+    })
+  })
+
+  describe('isBalanced', () => {
+    test('should return true for an empty tree', () => {
+      tree.root = null
+      expect(tree.isBalanced()).toBe(true)
+    })
+    test('should return true for a tree with only root node', () => {
+      tree.root = null
+      tree.insert(90129213)
+      expect(tree.isBalanced()).toBe(true)
+    })
+    test('should return true for a balanced tree when the diff. btw max. and min. heights is 0', () => {
+      expect(tree.isBalanced()).toBe(true)
+    })
+    test('should return true for a balanced tree when the diff. btw max. and min. heights is 1', () => {
+      tree.insert(99)
+      expect(tree.isBalanced()).toBe(true)
+    })
+    test('should return false for an unbalanced tree', () => {
+      tree.root = null
+      tree.insert(99)
+      tree.insert(991)
+      tree.insert(9911)
+      tree.insert(99111)
+      tree.insert(0)
+      expect(tree.isBalanced()).toBe(false)
+    })
+  })
 })

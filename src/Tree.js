@@ -234,4 +234,31 @@ export class Tree {
 
     return findDepthOf(value, this.root)
   }
+
+  getMinHeight(node = this.root) {
+    // returns the tree level at the which the lowest leaf node is present
+    if (node === null) return -1
+
+    let left = this.getMinHeight(node.left)
+    let right = this.getMinHeight(node.right)
+
+    return left < right ? left + 1 : right + 1
+  }
+
+  getMaxHeight(node = this.root) {
+    // returns the tree level at the which the largest leaf node is present
+    if (node === null) return -1
+
+    let left = this.getMaxHeight(node.left)
+    let right = this.getMaxHeight(node.right)
+
+    return left > right ? left + 1 : right + 1
+  }
+
+  isBalanced() {
+    return (
+      this.getMaxHeight() - this.getMinHeight() === 1 ||
+      this.getMaxHeight() - this.getMinHeight() === 0
+    )
+  }
 }
