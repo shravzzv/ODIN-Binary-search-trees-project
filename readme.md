@@ -9,8 +9,13 @@ This project was a part of The Odin Project. Here's the
 
 ## Features
 
-The class `Tree` contains the following methods:
+The class [`Tree`](src/Tree.js) contains the following methods:
 
+```js
+const tree = new Tree(arr)
+```
+
+- `buildTree(arr)`: Creates a binary search tree from an array.
 - `insert(value)`: Adds a new node with the given value to the tree.
 - `delete(value)`: Removes the node with the specified value from the tree.
 - `find(value)`: Returns the node with the given value.
