@@ -1,5 +1,6 @@
 import { Tree } from './Tree'
 
+// Write a simple driver script that does the following: (npm run start)
 /*
 // Create a binary search tree from an array of random numbers < 100. You can create a function that returns an array of random numbers every time you call it if you wish.
 
@@ -25,26 +26,29 @@ function getRandomIntInclusive(min, max) {
 }
 
 const randomNums = new Set()
-for (let i = 0; [...randomNums].length < 99; i++) {
-  randomNums.add(getRandomIntInclusive(0, 999))
+for (let i = 0; [...randomNums].length < 50; i++) {
+  randomNums.add(getRandomIntInclusive(0, 99))
 }
-
-console.log([...randomNums])
 
 const tree = new Tree([...randomNums])
 
 console.log(tree.isBalanced())
+
 console.log(tree.levelOrder())
 console.log(tree.preOrder())
 console.log(tree.postOrder())
 console.log(tree.inOrder())
 
-for (let i = 0; i < 100; i++) {
-  tree.insert(getRandomIntInclusive(1000, 1500))
+for (let i = 0; i < 50; i++) {
+  tree.insert(getRandomIntInclusive(101, 200))
 }
+
 console.log(tree.isBalanced())
+
 tree.rebalance()
+
 console.log(tree.isBalanced())
+
 console.log(tree.levelOrder())
 console.log(tree.preOrder())
 console.log(tree.postOrder())
