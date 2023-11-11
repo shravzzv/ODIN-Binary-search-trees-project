@@ -218,4 +218,21 @@ describe('Tree', () => {
       expect(tree.isBalanced()).toBe(false)
     })
   })
+
+  describe('rebalance', () => {
+    test('should balance an unbalanced tree', () => {
+      tree.insert(99)
+      tree.insert(999)
+      tree.insert(9999)
+      expect(tree.isBalanced()).toBe(false)
+      tree.rebalance()
+      expect(tree.isBalanced()).toBe(true)
+    })
+
+    test('should not imbalance an already balanced tree', () => {
+      expect(tree.isBalanced()).toBe(true)
+      tree.rebalance()
+      expect(tree.isBalanced()).toBe(true)
+    })
+  })
 })

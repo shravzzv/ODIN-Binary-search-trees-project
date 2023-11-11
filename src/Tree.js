@@ -2,33 +2,33 @@ import { Node } from './Node'
 
 export class Tree {
   constructor(array) {
-    function buildTree(array) {
-      // remove empty values & duplicates and sort the array
-      const uniqueArr = [...new Set(array.filter((num) => num))]
-      const treatedArr = uniqueArr.sort((a, b) => a - b)
+    this.root = this.buildTree(array)
+  }
 
-      function getBalBSTFromSorArr(array, start = 0, end = array.length - 1) {
-        // base of recursion
-        if (start > end) return null
+  buildTree(array) {
+    // remove empty values & duplicates and sort the array
+    const uniqueArr = [...new Set(array.filter((num) => num))]
+    const treatedArr = uniqueArr.sort((a, b) => a - b)
 
-        // find the middle element of the array and set it as the root
-        let mid = Math.floor((start + end) / 2)
-        let node = new Node(array[mid])
+    function getBalBSTFromSorArr(array, start = 0, end = array.length - 1) {
+      // base of recursion
+      if (start > end) return null
 
-        // generate the left subtree recursively
-        node.left = getBalBSTFromSorArr(array, start, mid - 1)
+      // find the middle element of the array and set it as the root
+      let mid = Math.floor((start + end) / 2)
+      let node = new Node(array[mid])
 
-        // generate the right subtree recursively
-        node.right = getBalBSTFromSorArr(array, mid + 1, end)
+      // generate the left subtree recursively
+      node.left = getBalBSTFromSorArr(array, start, mid - 1)
 
-        // return the level-0 root node
-        return node
-      }
+      // generate the right subtree recursively
+      node.right = getBalBSTFromSorArr(array, mid + 1, end)
 
-      return getBalBSTFromSorArr(treatedArr)
+      // return the level-0 root node
+      return node
     }
 
-    this.root = buildTree(array)
+    return getBalBSTFromSorArr(treatedArr)
   }
 
   prettyPrint(node = this.root, prefix = '', isLeft = true) {
@@ -260,5 +260,11 @@ export class Tree {
       this.getMaxHeight() - this.getMinHeight() === 1 ||
       this.getMaxHeight() - this.getMinHeight() === 0
     )
+  }
+
+  rebalance() {
+    // rebalances an unbalanced tree
+    // use the inOrder traversal to provide a new sorted array of nodes to the buildTree method
+    this.root = this.buildTree(this.inOrder())
   }
 }
