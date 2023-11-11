@@ -185,4 +185,53 @@ export class Tree {
     traversePostOrder(this.root, result)
     return result
   }
+
+  getHeightOf(value) {
+    let height = -1
+
+    function findHeightOf(value, root) {
+      // Base Case
+      if (root === null) return -1
+
+      // Store the maximum height of the left and right subtree
+      var leftHeight = findHeightOf(value, root.left)
+      var rightHeight = findHeightOf(value, root.right)
+
+      // Update height of the current node
+      let ans = Math.max(leftHeight, rightHeight) + 1
+
+      // If current node is the required node
+      if (root.data === value) {
+        height = ans
+      }
+
+      return ans
+    }
+
+    findHeightOf(value, this.root)
+    return height
+  }
+
+  getDepthOf(value) {
+    function findDepthOf(value, root) {
+      if (root == null) return -1 // Base case
+
+      let dist = -1
+      if (
+        // Check if x is current node
+        value === root.data ||
+        // Otherwise, check if x is present in the left subtree
+        (dist = findDepthOf(value, root.left)) >= 0 ||
+        // Otherwise, check if x is present in the right subtree
+        (dist = findDepthOf(value, root.right)) >= 0
+      ) {
+        // Return depth of the node
+        return dist + 1
+      }
+
+      return dist
+    }
+
+    return findDepthOf(value, this.root)
+  }
 }

@@ -112,4 +112,48 @@ describe('Tree', () => {
       expect(callbackFn).toHaveBeenCalledWith(8)
     })
   })
+
+  describe('getHeightOf', () => {
+    test('should return height of null as -1', () => {
+      expect(tree.getHeightOf(null)).toBe(-1)
+    })
+
+    test('should return the height of a non-existent node as -1', () => {
+      expect(tree.getHeightOf(991231231341)).toBe(-1)
+    })
+
+    test('should return the height of the root node', () => {
+      expect(tree.getHeightOf(5)).toBe(2)
+    })
+
+    test('should return the height of a non-leaf node', () => {
+      expect(tree.getHeightOf(3)).toBe(1)
+    })
+
+    test('should return the height of a leaf node as 0', () => {
+      expect(tree.getHeightOf(2)).toBe(0)
+    })
+  })
+
+  describe('getDepthOf', () => {
+    test('should return the depth of null as -1', () => {
+      expect(tree.getDepthOf(null)).toBe(-1)
+    })
+
+    test('should return the depth of a non-existent node to be -1', () => {
+      expect(tree.getDepthOf(991231231341)).toBe(-1)
+    })
+
+    test('should return the depth of the root node to be zero', () => {
+      expect(tree.getDepthOf(5)).toBe(0)
+    })
+
+    test('should return the depth of a non-leaf node', () => {
+      expect(tree.getDepthOf(3)).toBe(1)
+    })
+
+    test('should return the depth of a leaf node', () => {
+      expect(tree.getDepthOf(4)).toBe(2)
+    })
+  })
 })
