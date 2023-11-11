@@ -10,7 +10,8 @@
     "watch:webpack": "webpack --watch",
     "watch:server": "nodemon",
     "build": "npm run clean && webpack --mode production",
-    "dev": "concurrently \"npm run watch:webpack\" \"npm run watch:server\""
+    "dev": "concurrently \"npm run watch:webpack\" \"npm run watch:server\"",
+    "start": "node ./dist/main.js"
   },
   "keywords": [],
   "author": "Sai Shravan <shravzzv@outlook.com>",
