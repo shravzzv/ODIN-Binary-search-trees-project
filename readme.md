@@ -2,15 +2,28 @@
 
 ## Description
 
-Briefly describe your project here. What does it do? Why is it useful?
+This project implements a balanced binary search tree in JavaScript. It provides various methods to manipulate the tree, such as inserting and deleting nodes, checking if the tree is balanced, finding the height and depth of a node, and rebalancing the tree.
 
 This project was a part of The Odin Project. Here's the
 [project source](https://www.theodinproject.com/lessons/javascript-binary-search-trees).
 
 ## Features
 
-- Clearly list the key features of your project.
-- Be concise and informative.
+The class `Tree` contains the following methods:
+
+- `insert(value)`: Adds a new node with the given value to the tree.
+- `delete(value)`: Removes the node with the specified value from the tree.
+- `find(value)`: Returns the node with the given value.
+- `levelOrder(fn)`: Traverses the tree in breadth-first level order, providing each node as an argument to the callback function.
+- `inOrder(fn)`: Traverses the tree in in-order (left-root-right) and executes the callback function on each node.
+- `preOrder(fn)`: Traverses the tree in pre-order (root-left-right) and executes the callback function on each node.
+- `postOrder(fn)`: Traverses the tree in post-order (left-right-root) and executes the callback function on each node.
+- `getHeightOf(value)`: Returns the height of the node with the given value.
+- `getDepthOf(value)`: Returns the depth of the node with the given value.
+- `getMinHeight()`: Returns the level at which the lowest leaf node is present.
+- `getMaxHeight()`: Returns the level at which the largest leaf node is present.
+- `isBalanced()`: Checks if the tree is balanced.
+- `rebalance()`: Rebalances an unbalanced tree.
 
 ## Technologies Used
 
@@ -32,7 +45,7 @@ npm install
 
 ## Usage
 
-Explain how to use your project, provide examples if possible.
+There is a driver script `npm run start` to run the main project file.
 
 ## How to Contribute
 
